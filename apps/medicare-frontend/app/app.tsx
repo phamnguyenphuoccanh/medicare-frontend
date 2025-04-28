@@ -1,11 +1,7 @@
-import NxWelcome from './nx-welcome';
+import Login from './pages/Login';
 
 export function App() {
-  return (
-    <div>
-      <NxWelcome title="medicare-frontend" />
-    </div>
-  );
+  return <Login />;
 }
 
 export default App;
