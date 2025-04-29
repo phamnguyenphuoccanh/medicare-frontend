@@ -17,7 +17,6 @@ const Login = () => {
       const api = role === 'admin' ? adminLogin : staffLogin;
       const res = await api({ userName: username, password });
       alert('Đăng nhập thành công!');
-     
     } catch (err: any) {
       setError(err?.response?.data?.message || 'Đăng nhập thất bại!');
     } finally {
@@ -26,77 +25,113 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#22292f]">
-      <div className="absolute inset-0 z-0">
-        <img
-          src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80"
-          alt="background"
-          className="w-full h-full object-cover opacity-70"
-        />
+    <div className="relative w-screen h-screen overflow-hidden">
+      {/* Background Image */}
+      <img
+        src="./img/background.png"
+        alt="background"
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+
+      {/* Logo MEDICARE */}
+      <div className="absolute w-[375px] h-[96px] top-[85px] right-[330px] z-10">
+        <span
+          className="font-['Inter'] font-semibold text-[79px] leading-[96px] tracking-[-0.07em] bg-gradient-to-r from-[#005D65] via-[#00A5CB] to-[#03D9FF] bg-clip-text text-transparent drop-shadow-[3px_6px_4px_rgba(0,0,0,0.25)]"
+        >
+          MEDICARE
+        </span>
       </div>
+    
+      {/* Login Form */}
       <form
-        className="relative z-10 bg-white/90 rounded-xl shadow-2xl p-10 w-full max-w-md flex flex-col gap-4"
+        className="absolute w-[531px] h-[479px] left-1/2 top-[246px] translate-x-[109px] bg-[rgba(225,241,254,0.6)] border border-[#D9D9D9] flex flex-col items-center p-6"
         onSubmit={handleSubmit}
       >
-        <h2 className="text-3xl font-bold text-center mb-2 text-black drop-shadow">Đăng nhập hệ thống</h2>
-        <input
-          type="text"
-          className="rounded p-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
-          placeholder="Tên tài khoản"
-          value={username}
-          onChange={e => setUsername(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          className="rounded p-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
-          placeholder="Mật khẩu"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-          required
-        />
-        <div className="flex items-center justify-between text-xs mt-2">
-          <label className="flex items-center gap-2">
+        <h2 className="w-[286px] h-[35px] font-['Inter'] font-bold text-[29px] leading-[35px] text-black text-center mb-6">
+          Đăng nhập hệ thống
+        </h2>
+
+        {/* Username Input */}
+        <div className="w-[457px] mb-4">
+          <input
+            type="text"
+            className="w-[457px] h-[40px] p-3 bg-[#F9F9F9] border border-[#444444] rounded-[10px] focus:outline-none focus:ring-2 focus:ring-blue-400 placeholder-gray-400 text-gray-800"
+            placeholder="Tên tài khoản"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+        </div>
+
+        {/* Password Input */}
+        <div className="w-[457px] mb-6">
+          <input
+            type="password"
+            className="w-[457px] h-[40px] p-3 bg-[#F9F9F9] border border-[#444444] rounded-[10px] focus:outline-none focus:ring-2 focus:ring-blue-400 placeholder-gray-400 text-gray-800"
+            placeholder="Mật khẩu"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+
+        {/* Remember Me and Forgot Password */}
+        <div className="flex items-center justify-between w-[457px] text-sm mb-6">
+          <label className="flex items-center gap-2 text-gray-700">
             <input
               type="checkbox"
-              className="accent-blue-600"
+              className="accent-blue-600 h-4 w-4"
               checked={remember}
-              onChange={e => setRemember(e.target.checked)}
+              onChange={(e) => setRemember(e.target.checked)}
             />
             Duy trì đăng nhập
           </label>
-          <a href="#" className="text-red-500 hover:underline">Quên mật khẩu?</a>
+          <a href="#" className="text-red-500 hover:underline">
+            Quên mật khẩu?
+          </a>
         </div>
-        <div className="flex gap-2 mt-2">
+
+        {/* Role Selection Buttons */}
+        <div className="flex gap-3 mb-6">
           <button
             type="button"
-            className={`flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded border ${role === 'staff' ? 'bg-blue-500 text-white' : 'bg-white text-blue-500 border-blue-500'} hover:bg-blue-600 hover:text-white transition`}
+            className={`w-[169px] h-[57px] bg-[#D3ECF8] border border-[#444444] rounded-[10px] flex items-center justify-center gap-2 ${
+              role === 'staff'
+                ? 'bg-blue-500 text-white border-blue-500'
+                : 'text-blue-500 border-blue-500'
+            } hover:bg-blue-600 hover:text-white transition-all duration-200`}
             onClick={() => setRole('staff')}
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h18M9 3v18m6-18v18" /></svg>
-            BÁN HÀNG
+            🛒 BÁN HÀNG
           </button>
           <button
             type="button"
-            className={`flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded border ${role === 'admin' ? 'bg-blue-500 text-white' : 'bg-white text-blue-500 border-blue-500'} hover:bg-blue-600 hover:text-white transition`}
+            className={`w-[169px] h-[57px] bg-[#D3ECF8] border border-[#444444] rounded-[10px] flex items-center justify-center gap-2 ${
+              role === 'admin'
+                ? 'bg-blue-500 text-white border-blue-500'
+                : 'text-blue-500 border-blue-500'
+            } hover:bg-blue-600 hover:text-white transition-all duration-200`}
             onClick={() => setRole('admin')}
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 8c-2.21 0-4-1.79-4-4h2a2 2 0 004 0h2c0 2.21-1.79 4-4 4z" /></svg>
-            QUẢN LÝ
+            ⚙️ QUẢN LÝ
           </button>
         </div>
-        {error && <div className="text-red-500 text-center mt-2">{error}</div>}
+
+
+        {/* Error Message */}
+        {error && (
+          <div className="text-red-500 text-center mb-4 text-sm">{error}</div>
+        )}
+
+        {/* Submit Button */}
         <button
           type="submit"
           disabled={loading}
-          className="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded transition disabled:opacity-60"
+          className="w-[457px] h-[50px] bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-[10px] transition-all duration-200 disabled:opacity-60"
         >
           {loading ? 'Đang đăng nhập...' : 'ĐĂNG NHẬP'}
         </button>
       </form>
-      <div className="absolute top-10 left-10 z-10">
-        <span className="text-5xl font-bold text-cyan-400 drop-shadow">MEDI<span className="text-blue-700">CARE</span></span>
-      </div>
     </div>
   );
 };

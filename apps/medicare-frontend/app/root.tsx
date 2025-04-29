@@ -8,6 +8,7 @@ import {
   type LinksFunction,
 } from 'react-router';
 import { AppNav } from './app-nav';
+import './style.css';
 
 export const meta: MetaFunction = () => [
   {
